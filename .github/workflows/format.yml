@@ -10,8 +10,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Install Prettier
-        run: npm install -g prettier
+      - name: Install Prettier and Liquid plugin
+        run: |
+          npm install -g prettier
+          npm install -g @shopify/prettier-plugin-liquid
 
       - name: Run Prettier
         run: prettier . --write
