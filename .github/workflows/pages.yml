@@ -10,12 +10,11 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,11 +26,6 @@ jobs:
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./_site
-
-      - name: Deploy to GitHub Pages
+      - name: Upload to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
